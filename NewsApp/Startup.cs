@@ -26,11 +26,16 @@ namespace NewsApp
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
+        {            
             services.AddControllersWithViews();                       
             services.AddDbContext<GoogleNewsDbContext>(context => { context.UseInMemoryDatabase("GoogleNewsDB"); });
             services.AddDbContext<InternalNewsDbContext>(context => { context.UseInMemoryDatabase("InternalNewsDB"); });
             services.AddDbContext<PressTrustOfIndiaDbContext>(context => { context.UseInMemoryDatabase("PressTrustOfIndiaDB"); });
+            
+            services.AddScoped<GoogleNewsRepository, GoogleNewsRepository>();
+            services.AddScoped<InternalNewsRepository, InternalNewsRepository>();
+            services.AddScoped<PressTrustOfIndiaNewsRepository, PressTrustOfIndiaNewsRepository>();
+            services.AddScoped<INewsService, NewsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
